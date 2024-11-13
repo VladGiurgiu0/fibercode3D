@@ -5,6 +5,10 @@ These codes have been developed in collaboration with Marco de Paoli and Mobin A
 
 For an example of use of this code see: https://doi.org/10.48550/arXiv.2406.12462
 
+Procedure:
+1. Process images with MART in Davis with the option "Store one file for each z-plane" (Reconstruction -> Enable advanced settings).
+2. Use "Vlad_loops.m" to set your processing parameters and indicated the folders where your MART is and where the fiber data should be saved. This code calls "Vlad_main_for_loops.m" which does 4 things: a) discriminates the fibers, b) tracks the fibers, c) models the fibers as polynomials, and d) computes fiber quantities such as spinning and tumbling rates.
+
 Notes:
 1. "synthethic_fiber_generator" codes can be used to generate 3D fibers rotating at given spinning and tumbling rates to test the main fiber tracking code.
 
