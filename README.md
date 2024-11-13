@@ -1,7 +1,12 @@
 # fibercode3D
 Matlab codes to process 3D MART objects containing tracers and fibers.
 
+These codes have been developed in collaboration with Marco de Paoli and Mobin Alipour.
 
+For an example of use of this code see: https://doi.org/10.48550/arXiv.2406.12462
+
+Notes:
+1. "synthethic_fiber_generator" codes can be used to generate 3D fibers rotating at given spinning and tumbling rates to test the main fiber tracking code.
 
 
 Things to do:
