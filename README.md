@@ -17,8 +17,6 @@ Notes:
 
 Things to do:
 - Renormalize the red vector to have the length.
-- Remove all parameters not needed.
-- Remove all things related to Euler angles.
 - Integrate the method to fit the rotation rates like Voth.
 - Remove the time-skipping?
 - Clean Eigenvector_Tensor. Save principal axis only under one name.
