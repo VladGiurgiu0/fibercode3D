@@ -34,7 +34,7 @@ p.max_track_length=10;     % maximum track length - the rest of the track is con
 
 %%% refinement
 p.peak_finding_technique="Majority";                % Dilation, imregionalmax, max, Skeletonize, Majority, Majority + Skeletonize RECOMMENDED: 'Majority'
-p.polynomial_finding_technique="Mobin";             % Mobin - fit polynomial to fibre object (Alipour et al. 2021), Plane fitting (not finalised) RECOMMENDED: 'Mobin'
+p.polynomial_finding_technique="Mobin";             % Mobin - fit polynomial to fibre object (Alipour et al. 2021) RECOMMENDED: 'Mobin'
 p.use_weights=0;                                    % use the light intensity for weighting the polynomial fit RECOMMENDED: 0
 p.fitting_type_fibre='poly2';                       % polynomial order to use for fiber fitting 
                                                     % if p.polynomial_finding_technique="Mobin" RECOMMENDED: 'poly2'
@@ -59,10 +59,9 @@ p.fitting_type="rlowess";               %%% to fit a polynomial on all the posit
 p.kernel_trajectory_positions=20;       % kernel length for filtering the positions in timesteps
 p.kernel_trajectory_angles=10;          % kernel length for filtering the Euler Angles in timesteps
 
-p.use_which_vectors_for_orientation='svd';  % which eigenvectors to use for computation of the rotation rates
+p.use_which_vectors_for_orientation='region';  % which eigenvectors to use for computation of the rotation rates
                                             % 'poly' - from the inertia tensor of the polynomial fitted to the fibre
-                                            % 'region' - the Eigenvectors from regionprops3 on the fibre object (equivalent to 'svd' - check_if_svd_is_region.m)
-                                            % 'svd' - from the inertia tensor of the fibre object
+                                            % 'region' - the Eigenvectors from regionprops3 on the fibre object
 
 p.kernel_trajectory_vectors=20;             % kernel length for filtering the components of the eigenvectors in timesteps
 p.use_fitted_vectors_for_rotation_matrix=1; % if the filtered components should be used for the rotation rate computation (1) or not (0)
@@ -77,26 +76,23 @@ p.disable_edge_points=0;                    % 1 - when computing derivatives the
 p.correct_orientations=1;                       % if fiber fixed reference frame is not consistent from frame to frame (if it changes by more than the angle below)
                                                 % fix the coordinate system and recompute euler angles and rotational velocities
 p.angle=90;                                     % which angle to use for the above method [deg] RECOMMENDED: 90
-p.use_acos_cos=0;                               % each euler angle are filtered by function acos(abs(cos(EULER ANGLE))) - RECOMMENDED: 0
 
-% outlier detection, removal and replacement
-p.remove_outliers=1;                            % removes outliers from the angles based on filloutliers()
-p.windows_removal=10;                           % window size for outlier detection
-                                                % https://de.mathworks.com/help/matlab/ref/filloutliers.html?s_tid=doc_ta
 
 %%% saving data
-p.save_data_tracking=1;     % as tracking and modelling are intermediate steps in the processing here
-p.save_data_modelling=1;    % we can choose if this intermediate data is saved in p.save folder
+p.save_data_tracking=0;     % as tracking and modelling are intermediate steps in the processing
+p.save_data_modelling=0;    % we can choose if this intermediate data is saved in p.save folder (large space requirement) - Both RECOMMENDED: 0
+p.save_fiber_objects=0;     % if the 3D objects of the fibers are saved in the final processing step 
+                            % (large space requirement) - RECOMMENDED: 0 (use 1 if you need to visualise the fibers afterwards) 
 
 %%% processing steps
 p.discretize=1;         % which processing steps to perform, useful when changing parameters linked to a particular step and 
-p.track=1;               % the previous steps are not required to be recomputed
+p.track=1;              % the previous steps are not required to be recomputed
 p.modelling=1;
 p.quantities=1;
 
 
 %%% plotting
-p.plot=1;                                           % show each step of the process
+p.plot=0;                                           % show each step of the process
 p.print=0;                                          % save each plot in p.save\Figures_Processing\
 p.pause_enabled=1;                                  % 1 - after each plot pause the program and wait for a key press. 0 - don't wait for key press
 p.levellist=linspace(p.imbin_thres,20*p.imbin_thres,5);                            % list of isosurface values of intensity to show the fibers

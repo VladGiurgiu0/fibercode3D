@@ -274,11 +274,6 @@ for ij=1:size(AllFibers.Centroid(:,1),1)
                     AllFibers.red_tensor{ij,it}=[AllFibers.EigenVectors{ij,it}{1,1}(1,1),AllFibers.EigenVectors{ij,it}{1,1}(2,1),AllFibers.EigenVectors{ij,it}{1,1}(3,1)];
                     AllFibers.green_tensor{ij,it}=[AllFibers.EigenVectors{ij,it}{1,1}(1,2),AllFibers.EigenVectors{ij,it}{1,1}(2,2),AllFibers.EigenVectors{ij,it}{1,1}(3,2)];
                     AllFibers.blue_tensor{ij,it}=[AllFibers.EigenVectors{ij,it}{1,1}(1,3),AllFibers.EigenVectors{ij,it}{1,1}(2,3),AllFibers.EigenVectors{ij,it}{1,1}(3,3)];
-                case 'svd'
-                    PrincAxis = Beppe_PricipalAxis(full(AllFibers.Object{ij,it}));
-                    AllFibers.red_tensor{ij,it}=PrincAxis(:,1);
-                    AllFibers.green_tensor{ij,it}=PrincAxis(:,2);
-                    AllFibers.blue_tensor{ij,it}=PrincAxis(:,3);
             end
         end
 
@@ -347,38 +342,15 @@ for ij=1:size(AllFibers.Centroid(:,1),1)
 
 
     %%%%%%% ---- angles and rotational rates---- %%%%%%%%
-    if p.use_acos_cos==1
-        theta=acosd(abs(cosd(theta)));
-        phi=acosd(abs(cosd(phi)));
-        psi=acosd(abs(cosd(psi)));
-        [theta_fitted,~]=fit_data(time,theta,p.fitting_type,p.kernel_trajectory_angles);
-        [phi_fitted,~]=fit_data(time,phi,p.fitting_type,p.kernel_trajectory_angles);
-        [psi_fitted,~]=fit_data(time,psi,p.fitting_type,p.kernel_trajectory_angles);
-
-        theta_dot=Vlad_compute_derivative(time,theta_fitted,p.derivative_stencil,p.disable_edge_points);
-        phi_dot=Vlad_compute_derivative(time,phi_fitted,p.derivative_stencil,p.disable_edge_points);
-        psi_dot=Vlad_compute_derivative(time,psi_fitted,p.derivative_stencil,p.disable_edge_points);
-    else
-
-        if p.remove_outliers==1
-            theta_filled=filloutliers(theta,"linear","movmedian",p.windows_removal,"SamplePoints",timesteps);
-            psi_filled=filloutliers(psi,"linear","movmedian",p.windows_removal,"SamplePoints",timesteps);
-            phi_filled=filloutliers(phi,"linear","movmedian",p.windows_removal,"SamplePoints",timesteps);
-
-            [theta_fitted,~]=fit_data(time,theta_filled,p.fitting_type,p.kernel_trajectory_angles);
-            [phi_fitted,~]=fit_data(time,phi_filled,p.fitting_type,p.kernel_trajectory_angles);
-            [psi_fitted,~]=fit_data(time,psi_filled,p.fitting_type,p.kernel_trajectory_angles);
-        else
-            [theta_fitted,~]=fit_data(time,theta,p.fitting_type,p.kernel_trajectory_angles);
-            [phi_fitted,~]=fit_data(time,phi,p.fitting_type,p.kernel_trajectory_angles);
-            [psi_fitted,~]=fit_data(time,psi,p.fitting_type,p.kernel_trajectory_angles);
-        end
+    [theta_fitted,~]=fit_data(time,theta,p.fitting_type,p.kernel_trajectory_angles);
+    [phi_fitted,~]=fit_data(time,phi,p.fitting_type,p.kernel_trajectory_angles);
+    [psi_fitted,~]=fit_data(time,psi,p.fitting_type,p.kernel_trajectory_angles);
 
 
-        theta_dot=Vlad_compute_derivative(time,theta_fitted,p.derivative_stencil,p.disable_edge_points);
-        phi_dot=Vlad_compute_derivative(time,phi_fitted,p.derivative_stencil,p.disable_edge_points);
-        psi_dot=Vlad_compute_derivative(time,psi_fitted,p.derivative_stencil,p.disable_edge_points);
-    end
+    theta_dot=Vlad_compute_derivative(time,theta_fitted,p.derivative_stencil,p.disable_edge_points);
+    phi_dot=Vlad_compute_derivative(time,phi_fitted,p.derivative_stencil,p.disable_edge_points);
+    psi_dot=Vlad_compute_derivative(time,psi_fitted,p.derivative_stencil,p.disable_edge_points);
+
 
 
     %%%%%% ---Tumbling from orientation of principal axis of the fiber - red vector ----- %%%%% 
@@ -456,11 +428,6 @@ for ij=1:size(AllFibers.Centroid(:,1),1)
 
      
     %%%%%------%%%%
-    % Computation like Mobin
-    omega_x=psi_dot + cos(theta_fitted).*phi_dot;
-    omega_y=-theta_dot.*sin(psi_fitted) + sin(theta_fitted).*cos(psi_fitted).*phi_dot;
-    omega_z=theta_dot.*cos(psi_fitted) + sin(theta_fitted).*sin(psi_fitted).*phi_dot;
-
     % Computation with quaternions
     eulerAngles = [theta_fitted,phi_fitted,psi_fitted];
     q = quaternion(eulerAngles,'eulerd','ZYX','frame');
@@ -540,31 +507,24 @@ for ij=1:size(AllFibers.Centroid(:,1),1)
         AllFibers.phi{ij,it}=phi(tt);
         AllFibers.psi{ij,it}=psi(tt);
 
-        AllFibers.theta_dot{ij,it}=theta_dot(tt);
-        AllFibers.phi_dot{ij,it}=phi_dot(tt);
-        AllFibers.psi_dot{ij,it}=psi_dot(tt);
-    
         AllFibers.theta_fitted{ij,it}=theta_fitted(tt);
         AllFibers.phi_fitted{ij,it}=phi_fitted(tt);
         AllFibers.psi_fitted{ij,it}=psi_fitted(tt);
+
+        AllFibers.theta_dot{ij,it}=theta_dot(tt);
+        AllFibers.phi_dot{ij,it}=phi_dot(tt);
+        AllFibers.psi_dot{ij,it}=psi_dot(tt);
+   
     
-        %%%%%% write rotation rates MOBIN
-        % components of the angular velocity in body frame
-        % coordinates (index b) computed like Mobin
-        AllFibers.Omega_b_x_Mobin{ij,it}=omega_x(tt);
-        AllFibers.Omega_b_y_Mobin{ij,it}=omega_y(tt);
-        AllFibers.Omega_b_z_Mobin{ij,it}=omega_z(tt);
 
         %%%%%% write rotation rates QUATERNION
         %  components of the angular velocity in body frame
         % coordinates (index b) computed with quaternions
-        AllFibers.Omega_b_x_Quaternion{ij,it}=omega_q_x(tt);
-        AllFibers.Omega_b_y_Quaternion{ij,it}=omega_q_y(tt);
-        AllFibers.Omega_b_z_Quaternion{ij,it}=omega_q_z(tt);
-        AllFibers.Spinning_rate_Quaternion{ij,it}=abs(omega_q_x(tt));
-        AllFibers.Tumbling_rate_Quaternion{ij,it}=sqrt(omega_q_y(tt)^2 + omega_q_z(tt)^2);
-        %AllFibers.Spinning_rate_Quaternion{ij,it}=abs(dot([omega_q_x(tt), omega_q_y(tt), omega_q_z(tt)],AllFibers.red_tensor{ij,it}));
-        %AllFibers.Tumbling_rate_Quaternion{ij,it}=norm(cross([omega_q_x(tt), omega_q_y(tt), omega_q_z(tt)],AllFibers.red_tensor{ij,it}));
+        AllFibers.Omega_b_x_Quaternion_Euler{ij,it}=omega_q_x(tt);
+        AllFibers.Omega_b_y_Quaternion_Euler{ij,it}=omega_q_y(tt);
+        AllFibers.Omega_b_z_Quaternion_Euler{ij,it}=omega_q_z(tt);
+        AllFibers.Spinning_rate_Quaternion_Euler{ij,it}=abs(omega_q_x(tt));
+        AllFibers.Tumbling_rate_Quaternion_Euler{ij,it}=sqrt(omega_q_y(tt)^2 + omega_q_z(tt)^2);
 
         %%%%%% write tumbling rate DERIVATIVE of PRINCIPAL AXIS
         AllFibers.Tumbling_rate_pdot{ij,it}=norm([red_dot_1(tt),red_dot_2(tt),red_dot_3(tt)]);
@@ -605,13 +565,16 @@ end
 if ~exist(strcat(p.save,'4_Quantities_Refined_fibers\'),'dir')
     mkdir(strcat(p.save,'4_Quantities_Refined_fibers\'))
 end
-% % save one big file
-% save(strcat(p.save,'4_Quantities_Refined_fibers\',"AllFibers.mat"),"AllFibers","p")
 
-AllFibers.Object=[];
 
-% save one big file of only the data, without the objects of the fibres
-save(strcat(p.save,'4_Quantities_Refined_fibers\',"AllFibers_Only_data.mat"),"AllFibers","p")
+if p.save_fiber_objects==1
+    save(strcat(p.save,'4_Quantities_Refined_fibers\',"AllFibers.mat"),"AllFibers","p")
+else
+    % remove the fiber objects to save space
+    AllFibers.Object=[];
+    save(strcat(p.save,'4_Quantities_Refined_fibers\',"AllFibers.mat"),"AllFibers","p")
+
+end
 
 end
 
