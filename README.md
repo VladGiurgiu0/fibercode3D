@@ -17,7 +17,7 @@ Notes:
 
 Things to do:
 - Renormalize the red vector to have the length.
-- Integrate the method to fit the rotation rates like Voth.
+- Integrate the method to fit the rotation rates like Voth: this should be done aposteriori in a separate code: 1. load all vectors of all fibers of all loops. 2. compute rotation rates
 - Remove the time-skipping?
 - Clean Eigenvector_Tensor. Save principal axis only under one name.
 - Opt: Make an option so that when loading MART files binarize them before giving it to be discriminated -> saves RAM and so we can run on multiple CPUs at the same time.
