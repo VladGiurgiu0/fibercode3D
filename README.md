@@ -21,4 +21,3 @@ Things to do:
 - Remove the time-skipping?
 - Clean Eigenvector_Tensor. Save principal axis only under one name.
 - Opt: Make an option so that when loading MART files binarize them before giving it to be discriminated -> saves RAM and so we can run on multiple CPUs at the same time.
-- Opt: Make an option to save keep or delete the fiber images after the code does not need them anymore, so less data is saved.
