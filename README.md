@@ -18,9 +18,6 @@ Notes:
 Things to do:
 - Renormalize the red vector to have the length.
 - Remove all parameters not needed.
-- Remove stuff related to the Euler angles.
-- Add paramter to switch if the fiber objects should be saved after tracking.
-- Remove all ways of computing rotation rates from Mobin.
 - Integrate the method to fit the rotation rates like Voth.
 - Remove the time-skipping?
 - Clean Eigenvector_Tensor. Save principal axis only under one name.
