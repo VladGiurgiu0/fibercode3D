@@ -28,7 +28,7 @@ p.l_min=40;                 % Minimum length (in voxels) of the longest principa
 %%% tracking
 p.radius=25;                % radius of search in voxel
 
-p.min_track_length=2;      % minimum track length - the rest of the tracks are deleted
+p.min_track_length=6;      % minimum track length - the rest of the tracks are deleted
 p.max_track_length=10;     % maximum track length - the rest of the track is considered new tracks 
 
 
@@ -85,7 +85,7 @@ p.save_fiber_objects=0;     % if the 3D objects of the fibers are saved in the f
                             % (large space requirement) - RECOMMENDED: 0 (use 1 if you need to visualise the fibers afterwards) 
 
 %%% processing steps
-p.discretize=1;         % which processing steps to perform, useful when changing parameters linked to a particular step and 
+p.discretize=0;         % which processing steps to perform, useful when changing parameters linked to a particular step and 
 p.track=1;              % the previous steps are not required to be recomputed
 p.modelling=1;
 p.quantities=1;
