@@ -16,11 +16,12 @@ Notes:
 
 
 Things to do:
-- Renormalize the red vector to have the length
+- Renormalize the red vector to have the length.
 - Remove all parameters not needed.
+- Remove stuff related to the Euler angles.
+- Add paramter to switch if the fiber objects should be saved after tracking.
+- Remove all ways of computing rotation rates from Mobin.
 - Integrate the method to fit the rotation rates like Voth.
-- Remove the technique to fit the fiber in the "Plane fitting" way.
-- Remove the std technique for the principal axis.
 - Remove the time-skipping?
 - Clean Eigenvector_Tensor. Save principal axis only under one name.
 - Opt: Make an option so that when loading MART files binarize them before giving it to be discriminated -> saves RAM and so we can run on multiple CPUs at the same time.
