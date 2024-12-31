@@ -61,6 +61,31 @@ for ii=vn2'
     i=i+1;
 end
 
+%% print nearest neighbour distances
+% Convert the cell array to a numeric matrix
+centroids = cell2mat(Fibers.Centroid);
+% Number of fibers
+numFibers = size(centroids, 1);
+% Initialize array to store the nearest neighbor distances
+nearest_neighbor_distances = zeros(numFibers, 1);
+% Loop through each centroid
+for i = 1:numFibers
+    % Compute distances from the current centroid to all others
+    distances = sqrt(sum((centroids - centroids(i, :)).^2, 2));
+    % Ignore self-distance (set it to infinity)
+    distances(i) = inf;
+    % Find the minimum distance (nearest neighbor)
+    nearest_neighbor_distances(i) = min(distances);
+end
+
+% Display the result
+fprintf('Number of fibers: %d, Minimum, average, and maximum nearest neighbor distances are: %.1f, %.1f, %.1f vox, respectively. \n',...
+    numFibers, min(nearest_neighbor_distances), mean(nearest_neighbor_distances), max(nearest_neighbor_distances));
+
+if p.plot==1
+    title('Histogram of nearest neighbor distances')
+    histogram(nearest_neighbor_distances)
+end
 
 %% look at the results
 if p.plot==1
