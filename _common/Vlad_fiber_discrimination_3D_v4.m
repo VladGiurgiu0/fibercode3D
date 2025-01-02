@@ -240,7 +240,7 @@ if p.plot==1
             pause
         end
     
-        gcf; clf; clc;
+        gcf; clf; %clc;
 
         j=j+1;
     
