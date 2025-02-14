@@ -22,7 +22,7 @@ p.parallel_cores=3;        % Number of cores to be used in parallel for discreti
 p.in=1;                     % Starting timestep number
 p.ki=2;                   % Ending timestep number 
 
-p.imbin_thres=0.5;          % Threshold for binarization, enter 0 if you dont want to consider a threshold
+p.imbin_thres=2;          % Threshold for binarization, enter 0 if you dont want to consider a threshold
 p.l_min=40;                 % Minimum length (in voxels) of the longest principal axis of the equivalent ellipsoid (see regionprops3)
 
 %%% tracking
@@ -95,7 +95,7 @@ p.quantities=1;
 p.plot=1;                                           % show each step of the process
 p.print=0;                                          % save each plot in p.save\Figures_Processing\
 p.pause_enabled=1;                                  % 1 - after each plot pause the program and wait for a key press. 0 - don't wait for key press
-p.levellist=linspace(p.imbin_thres,20*p.imbin_thres,5);                            % list of isosurface values of intensity to show the fibers
+p.levellist=linspace(p.imbin_thres,5*p.imbin_thres,5);                            % list of isosurface values of intensity to show the fibers
 %p.levellist = [2 4 6];
 p.facealphalist=linspace(0.1,0.4,numel(p.levellist)); % list of alpha values for each isosurface of instensity
 p.skip=30;                                           % how many time steps to skip when showing the fiber track and eigenvectors (for clarity)
@@ -108,7 +108,7 @@ p.limits_plot=30;                                   % limits of the plot for the
 p.virtual_data=0; % 1 - if the input data is generated virtually to check the code
 
 %% processing
-p.main_folder = 'E:\PRL2_CC_center_v2\Fibers_test\ImgPreproc\TomographicPIV\Data\';
+p.main_folder = 'E:\PRL2_CC_bottom\Fibers_Re180\loop=0\ImgPreproc\TomographicPIV\Data\';
 p.subfolders = {'example_data'};
 nr_of_loops = 1;
 

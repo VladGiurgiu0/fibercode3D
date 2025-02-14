@@ -89,87 +89,87 @@ end
 
 %% look at the results
 if p.plot==1
-% %% show the full object and the distretized object
-%     %%% show the full object
-%     fig1=figure(1); box on; grid on; hold on;
-%     fig1.WindowState='maximized';
-%     title('Full Object','Interpreter','latex')
-%     for i=1:length(p.levellist)
-%         level=p.levellist(i);
-%         pat=patch(isosurface(I,level));
-%         pat.FaceVertexCData=level;
-%         pat.FaceColor='flat';
-%         pat.EdgeColor='none';
-%         pat.FaceAlpha=p.facealphalist(i);
-%     end
-%     colormap(hsv(numel(p.levellist)-1))
-%     colorbar
-%     daspect([1 1 1])
-%     view(3)
-% 
-%     xlabel('$x$ (stream-wise)')
-%     ylabel('$y$ (span-wise)')
-%     zlabel('$z$ (wall-normal)')
-% 
-%     quiver3(0,0,0,1,0,0,100,'filled','LineWidth',2,'Color',[255 68 59]/255,'Marker','.','MarkerSize',20,'MarkerFaceColor','k','MarkerEdgeColor',[152 152 157]/255,'MaxHeadSize',150);
-%     quiver3(0,0,0,0,1,0,100,'filled','LineWidth',2,'Color',[50 215 75]/255,'MaxHeadSize',150)
-%     quiver3(0,0,0,0,0,1,100,'filled','LineWidth',2,'Color',[10 132 255]/255,'MaxHeadSize',150)
-% 
-%     hold off
-% 
-%     if p.print==1
-%         % make folder where to save the figures of the processing
-%         if ~exist(strcat(p.save,'Figures_Movies_Processing\1_Binarization\'),'dir')
-%             mkdir(strcat(p.save,'Figures_Movies_Processing\1_Binarization\'))
-%         end
-%         savefig(strcat(p.save,'Figures_Movies_Processing\1_Binarization\','Timestep_',num2str(kk),'.fig'))
-%         print(strcat(p.save,'Figures_Movies_Processing\1_Binarization\','Timestep_',num2str(kk),'.tif'),'-dtiffn')
-%     end
-% 
-%     %%% show the binarized object
-%     % fig2=figure(2); fig2.Position=[303 47 591 413];
-%     % volshow(BW);
-% 
-%     %%% show the binarized and discretized object
-%     %fig3=figure(3); fig3.Position=[895 40 548 419];
-%     %volshow(imbinarize(II,0));
-% 
-%     %%% show the discretized object
-%     fig4=figure(4); box on; grid on; hold on;
-%     fig4.WindowState='maximized';
-%     title('Discretized Object','Interpreter','latex')
-%     for i=1:length(p.levellist)
-%         level=p.levellist(i);
-%         pat=patch(isosurface(II,level));
-%         pat.FaceVertexCData=level;
-%         pat.FaceColor='flat';
-%         pat.EdgeColor='none';
-%         pat.FaceAlpha=p.facealphalist(i);
-%     end
-%     colormap(hsv(numel(p.levellist)-1))
-%     colorbar
-%     daspect([1 1 1])
-%     view(3)
-% 
-%     xlabel('$x$ (stream-wise)')
-%     ylabel('$y$ (span-wise)')
-%     zlabel('$z$ (wall-normal)')
-% 
-%     quiver3(0,0,0,1,0,0,100,'filled','LineWidth',2,'Color',[255 68 59]/255,'Marker','.','MarkerSize',20,'MarkerFaceColor','k','MarkerEdgeColor',[152 152 157]/255,'MaxHeadSize',150);
-%     quiver3(0,0,0,0,1,0,100,'filled','LineWidth',2,'Color',[50 215 75]/255,'MaxHeadSize',150)
-%     quiver3(0,0,0,0,0,1,100,'filled','LineWidth',2,'Color',[10 132 255]/255,'MaxHeadSize',150)
-% 
-%     hold off
-% 
-%     if p.print==1
-%         % make folder where to save the figures of the processing
-%         if ~exist(strcat(p.save,'Figures_Movies_Processing\2_Discretization\'),'dir')
-%             mkdir(strcat(p.save,'Figures_Movies_Processing\2_Discretization\'))
-%         end        
-%         savefig(strcat(p.save,'Figures_Movies_Processing\2_Discretization\','Timestep_',num2str(kk),'.fig'))
-%         print(strcat(p.save,'Figures_Movies_Processing\2_Discretization\','Timestep_',num2str(kk),'.tif'),'-dtiffn')
-%     end
-% 
+%% show the full object and the distretized object
+    % %%% show the full object
+    % fig1=figure(1); box on; grid on; hold on;
+    % fig1.WindowState='maximized';
+    % title('Full Object','Interpreter','latex')
+    % for i=1:length(p.levellist)
+    %     level=p.levellist(i);
+    %     pat=patch(isosurface(I,level));
+    %     pat.FaceVertexCData=level;
+    %     pat.FaceColor='flat';
+    %     pat.EdgeColor='none';
+    %     pat.FaceAlpha=p.facealphalist(i);
+    % end
+    % colormap(hsv(numel(p.levellist)-1))
+    % colorbar
+    % daspect([1 1 1])
+    % view(3)
+    % 
+    % xlabel('$x$ (stream-wise)')
+    % ylabel('$y$ (span-wise)')
+    % zlabel('$z$ (wall-normal)')
+    % 
+    % quiver3(0,0,0,1,0,0,100,'filled','LineWidth',2,'Color',[255 68 59]/255,'Marker','.','MarkerSize',20,'MarkerFaceColor','k','MarkerEdgeColor',[152 152 157]/255,'MaxHeadSize',150);
+    % quiver3(0,0,0,0,1,0,100,'filled','LineWidth',2,'Color',[50 215 75]/255,'MaxHeadSize',150)
+    % quiver3(0,0,0,0,0,1,100,'filled','LineWidth',2,'Color',[10 132 255]/255,'MaxHeadSize',150)
+    % 
+    % hold off
+    % 
+    % if p.print==1
+    %     % make folder where to save the figures of the processing
+    %     if ~exist(strcat(p.save,'Figures_Movies_Processing\1_Binarization\'),'dir')
+    %         mkdir(strcat(p.save,'Figures_Movies_Processing\1_Binarization\'))
+    %     end
+    %     savefig(strcat(p.save,'Figures_Movies_Processing\1_Binarization\','Timestep_',num2str(kk),'.fig'))
+    %     print(strcat(p.save,'Figures_Movies_Processing\1_Binarization\','Timestep_',num2str(kk),'.tif'),'-dtiffn')
+    % end
+    % 
+    % %%% show the binarized object
+    % % fig2=figure(2); fig2.Position=[303 47 591 413];
+    % % volshow(BW);
+    % 
+    % %%% show the binarized and discretized object
+    % %fig3=figure(3); fig3.Position=[895 40 548 419];
+    % %volshow(imbinarize(II,0));
+    % 
+    % %%% show the discretized object
+    % fig4=figure(4); box on; grid on; hold on;
+    % fig4.WindowState='maximized';
+    % title('Discretized Object','Interpreter','latex')
+    % for i=1:length(p.levellist)
+    %     level=p.levellist(i);
+    %     pat=patch(isosurface(II,level));
+    %     pat.FaceVertexCData=level;
+    %     pat.FaceColor='flat';
+    %     pat.EdgeColor='none';
+    %     pat.FaceAlpha=p.facealphalist(i);
+    % end
+    % colormap(hsv(numel(p.levellist)-1))
+    % colorbar
+    % daspect([1 1 1])
+    % view(3)
+    % 
+    % xlabel('$x$ (stream-wise)')
+    % ylabel('$y$ (span-wise)')
+    % zlabel('$z$ (wall-normal)')
+    % 
+    % quiver3(0,0,0,1,0,0,100,'filled','LineWidth',2,'Color',[255 68 59]/255,'Marker','.','MarkerSize',20,'MarkerFaceColor','k','MarkerEdgeColor',[152 152 157]/255,'MaxHeadSize',150);
+    % quiver3(0,0,0,0,1,0,100,'filled','LineWidth',2,'Color',[50 215 75]/255,'MaxHeadSize',150)
+    % quiver3(0,0,0,0,0,1,100,'filled','LineWidth',2,'Color',[10 132 255]/255,'MaxHeadSize',150)
+    % 
+    % hold off
+    % 
+    % if p.print==1
+    %     % make folder where to save the figures of the processing
+    %     if ~exist(strcat(p.save,'Figures_Movies_Processing\2_Discretization\'),'dir')
+    %         mkdir(strcat(p.save,'Figures_Movies_Processing\2_Discretization\'))
+    %     end        
+    %     savefig(strcat(p.save,'Figures_Movies_Processing\2_Discretization\','Timestep_',num2str(kk),'.fig'))
+    %     print(strcat(p.save,'Figures_Movies_Processing\2_Discretization\','Timestep_',num2str(kk),'.tif'),'-dtiffn')
+    % end
+
 
 
 %% look at each fiber
