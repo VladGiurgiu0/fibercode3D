@@ -9,7 +9,7 @@ function[nr_fibers,Fibers]=Vlad_fiber_discrimination_3D_v4(I,p,kk)
 if p.imbin_thres>0
     BW = imbinarize(I,p.imbin_thres);
 else
-    BW = imbinarize(I);
+    BW = imbinarize(I,"adaptive",Sensitivity=0.4);
 end
 
 % identify connected regions and compute their geometrical properties
